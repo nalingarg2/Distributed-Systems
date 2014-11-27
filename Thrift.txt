@@ -1,0 +1,16 @@
+Your first assignment is to write a simple spelling server.  The client sends a list of n words, {w_1 .. w_n}.  The server replies with a list of n bools {b_1 .. b_n}, such that b_i is true if and only if w_i is in the words file, which is here: http://www.cs.duke.edu/~ola/ap/linuxwords
+
+The Thrift interface definition language file is shown here:
+
+$ cat spell.thrift 
+struct SpellRequest {
+  1: list<string> to_check
+}
+
+struct SpellResponse {
+  1: list<bool> is_correct
+}
+
+service SpellService {
+  SpellResponse spellcheck(1:SpellRequest request)
+}

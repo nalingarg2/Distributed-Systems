@@ -1,0 +1,24 @@
+Project 3: Sharding For Scalability
+
+This project builds on the distributed spell checking system from the first two projects.  We will break the dictionary into two shards.
+
+Client Behavior
+
+Your client should take two lists of servers, S0 and S1.  Let S be the least significant bit of the MD5 hash of the lowercase form of the word being checked.  If S is 0, a server from list S0 should be used.  If S is 1, a server from list S1 should be used.  
+
+
+Server Behavior
+
+Servers listed in S0 should be loaded with only the subset of words listed in the linuxwords file where the least significant bit of the MD5 hash of the lowercase form of the word is 0.  That subset can be found here: http://isis.poly.edu/~kurt/shard_0_words
+
+Servers listed in S1 should be loaded with only the subset of words listed in the linuxwords file where the least significant bit of the MD5 hash of the lowercase form of the word is 1.  That subset can be found here: http://isis.poly.edu/~kurt/shard_1_words
+
+
+Your Project
+
+Implement the client so that it can be given a set of words and it will spell check each word using the correct server, and will return the results on stdout.  Except for the S0 and S1 filenames on the command line, the user (the one who runs your client program) should not need to be aware that the spell check service has a sharded architecture.  Continue to use your fault tolerance logic from project 2.
+
+
+Sharding Code
+
+If there is any confusion regarding the logic for which shard a word goes into, here is the code that was used for preparing the subset files: http://isis.poly.edu/~kurt/sharder.c
